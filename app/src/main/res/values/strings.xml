@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Mash Diary</string>
+    <string name="auth_primary_text">Sign in with Google</string>
+    <string name="auth_secondary_text">Please wait…</string>
+    <string name="auth_welcome_title">Welcome Back</string>
+    <string name="auth_welcome_subtitle">please sign in to continue</string>
+</resources>
