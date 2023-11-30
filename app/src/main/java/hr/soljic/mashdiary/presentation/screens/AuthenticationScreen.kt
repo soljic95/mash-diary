@@ -17,7 +17,8 @@ fun AuthenticationScreen(
 ) {
     Scaffold(content = {
         AuthenticationContent(
-            loadingState = loadingState, onActionClick = {  }
+            loadingState = loadingState, onActionClick = {
+            }
         )
     })
 

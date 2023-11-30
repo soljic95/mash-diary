@@ -26,7 +26,7 @@ fun SetupNavGraph(startDestination: String, navController: NavHostController) {
 
 fun NavGraphBuilder.authenticationRoute() {
     composable(route = Screen.Authentication.route) {
-        AuthenticationScreen(loadingState = true)
+        AuthenticationScreen(loadingState = false)
     }
 }
 
