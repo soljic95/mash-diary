@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "250775396409-k119ptp71ul40u895k96qp65g8npvmik.apps.googleusercontent.com",
+          "client_id": "250775396409-e5hq9eut96h1u8a4k3flnumgflcdguqs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hr.soljic.mashdiary",
+            "certificate_hash": "715fd019fd7e591dc10ee4613347bb7aeeac84c9"
+          }
+        },
+        {
+          "client_id": "250775396409-ghjqqjc32i25fr6gsl3i5be6r5t7jb9l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "250775396409-k119ptp71ul40u895k96qp65g8npvmik.apps.googleusercontent.com",
+              "client_id": "250775396409-ghjqqjc32i25fr6gsl3i5be6r5t7jb9l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

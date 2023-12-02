@@ -1,4 +1,4 @@
-package hr.soljic.mashdiary.presentation.screens.auth
+package hr.soljic.mashdiary.presentation.screens.signin
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,7 +19,7 @@ import hr.soljic.mashdiary.R
 import hr.soljic.mashdiary.presentation.GoogleButton
 
 @Composable
-fun AuthenticationContent(loadingState: Boolean, onActionClick: () -> Unit) {
+fun AuthenticationContent(onActionClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -56,7 +56,7 @@ fun AuthenticationContent(loadingState: Boolean, onActionClick: () -> Unit) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            GoogleButton(loadingState = loadingState,
+            GoogleButton(loadingState = false,
                 modifier = Modifier.fillMaxWidth(0.8f),
                 onClick = { onActionClick() })
         }
@@ -67,7 +67,7 @@ fun AuthenticationContent(loadingState: Boolean, onActionClick: () -> Unit) {
 @Preview
 @Composable
 fun PreviewAuthenticationContent() {
-    AuthenticationContent(true) {
-
-    }
+   // AuthenticationContent(true) {
+//
+   // }
 }

@@ -4,21 +4,23 @@ import android.annotation.SuppressLint
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import com.stevdzasan.onetap.OneTapSignInState
-import com.stevdzasan.onetap.OneTapSignInWithGoogle
-import hr.soljic.mashdiary.presentation.screens.auth.AuthenticationContent
-import hr.soljic.mashdiary.util.Constants
+import androidx.compose.ui.platform.LocalContext
+import hr.soljic.mashdiary.presentation.screens.signin.AuthenticationContent
+import hr.soljic.mashdiary.presentation.screens.signin.SignInState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AuthenticationScreen(
-    loadingState: Boolean
+    signInState: SignInState,
+    onSignInClick: () -> Unit,
 ) {
+    val context = LocalContext.current
+
+
     Scaffold(content = {
         AuthenticationContent(
-            loadingState = loadingState, onActionClick = {
-            }
+             onActionClick = { onSignInClick() }
         )
     })
 
