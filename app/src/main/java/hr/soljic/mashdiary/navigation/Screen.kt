@@ -1,6 +1,6 @@
 package hr.soljic.mashdiary.navigation
 
-import hr.soljic.mashdiary.util.Constants.WRITE_SCREEN_ARG
+import hr.soljic.mashdiary.core.Constants.WRITE_SCREEN_ARG
 
 sealed class Screen(val route: String) {
     object Authentication :

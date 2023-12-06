@@ -1,6 +1,5 @@
-package hr.soljic.mashdiary.presentation
+package hr.soljic.mashdiary.feature.authentication.presentation.sign_in
 
-import android.graphics.drawable.shapes.Shape
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Surface
@@ -41,7 +39,7 @@ import hr.soljic.mashdiary.R
 @Composable
 fun GoogleButton(
     modifier: Modifier = Modifier,
-    loadingState: Boolean = false,
+    userSignedIn: Boolean = false,
     primaryText: String = stringResource(id = R.string.auth_primary_text),
     secondaryText: String = stringResource(id = R.string.auth_secondary_text),
     icon: Int = R.drawable.google_logo,
@@ -49,17 +47,16 @@ fun GoogleButton(
     borderColor: Color = MaterialTheme.colorScheme.surfaceVariant,
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     borderStrokeWidth: Dp = 1.dp,
-    progressIndicatorColor: Color = MaterialTheme.colorScheme.primary,
     onClick: () -> Unit,
 ) {
     var buttonText by remember { mutableStateOf(primaryText) }
 
-    LaunchedEffect(key1 = loadingState) {
-        buttonText = if (loadingState) secondaryText else primaryText
+    LaunchedEffect(key1 = userSignedIn) {
+        buttonText = if (userSignedIn) secondaryText else primaryText
     }
 
     Surface(
-        modifier = modifier.clickable(!loadingState) {
+        modifier = modifier.clickable(!userSignedIn) {
             onClick()
         },
         shape = shape,
@@ -79,21 +76,15 @@ fun GoogleButton(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Image(painter = painterResource(id = icon), contentDescription = "Google Logo")
+            if (!userSignedIn) {
+                Image(painter = painterResource(id = icon), contentDescription = "Google Logo")
+            }
             Spacer(modifier = Modifier.width(8.dp))
 
             Text(
                 text = buttonText,
                 style = TextStyle(fontSize = MaterialTheme.typography.bodyMedium.fontSize)
             )
-
-            if (loadingState) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(16.dp),
-                    strokeWidth = 2.dp,
-                    color = progressIndicatorColor
-                )
-            }
 
         }
 
@@ -114,7 +105,7 @@ fun GoogleButtonPreview() {
 @Preview
 @Composable
 fun GoogleButtonPreview2() {
-    GoogleButton(loadingState = true) {
+    GoogleButton(userSignedIn = true) {
 
     }
 }

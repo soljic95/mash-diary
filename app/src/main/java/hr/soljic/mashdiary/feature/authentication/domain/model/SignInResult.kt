@@ -1,4 +1,4 @@
-package hr.soljic.mashdiary.presentation.screens.signin
+package hr.soljic.mashdiary.feature.authentication.domain.model
 
 data class SignInResult(
     val data: UserData?,
