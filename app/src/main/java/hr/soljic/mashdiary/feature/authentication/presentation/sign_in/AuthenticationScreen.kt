@@ -13,12 +13,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.google.android.gms.auth.api.identity.Identity
-import com.google.firebase.auth.AuthCredential
 import hr.soljic.mashdiary.core.Constants.TAG
 import hr.soljic.mashdiary.feature.authentication.domain.model.GoogleAuthUiClient
 import hr.soljic.mashdiary.feature.authentication.domain.model.AuthenticationInViewModel
-import hr.soljic.mashdiary.feature.authentication.domain.model.SignInResult
+import hr.soljic.mashdiary.feature.home.navigation.HomeScreens
+import hr.soljic.mashdiary.navigation.AuthenticationScreens
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -29,6 +30,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AuthenticationScreen(
+    navController: NavController,
     viewModel: AuthenticationInViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -36,6 +38,10 @@ fun AuthenticationScreen(
     var activityResultJob: Job?
     var getSignIntentSenderJob: Job?
 
+    if (state.isSignInSuccessful) {
+        navController.navigate(route = "home_destination_route") //todo stavit negdje ne ovako
+        return
+    }
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartIntentSenderForResult(),
@@ -47,8 +53,7 @@ fun AuthenticationScreen(
                         intent = it
                     )
                 }
-                authCredential?.let { viewModel.signInUserWithGoogleAuth(authCredential = it) }
-                viewModel.resetState()
+                authCredential?.let { viewModel.signInUserWithGoogleAuth(authCredential = it) }//todo fixat nullabilnost
             } else {
                 viewModel.resetState()
             }
@@ -58,19 +63,22 @@ fun AuthenticationScreen(
         AuthenticationContent(
             signInState = state,
             onActionClick = {
-                Log.d(TAG, "Sending SignInIntentSender : ")
-                getSignIntentSenderJob = CoroutineScope(Dispatchers.IO).launch {
-                    val signInIntentSender = googleAuthUiClient.signIn()
-                    Log.d(TAG, "SignInIntentSender is null :${signInIntentSender == null} ")
-                    launcher.launch(
-                        IntentSenderRequest.Builder(
-                            intentSender = signInIntentSender ?: return@launch
-                        ).build()
-                    )
-                    this.coroutineContext.cancel()
-                    viewModel.setStateToLoading()
-                }
+                viewModel.signInUserWithGoogleAuth()
+                // viewModel.setStateToLoading()
+                // Log.d(TAG, "Sending SignInIntentSender : ")
+                // getSignIntentSenderJob = CoroutineScope(Dispatchers.IO).launch {
+                //     val signInIntentSender = googleAuthUiClient.signIn()
+                //     Log.d(TAG, "SignInIntentSender is null :${signInIntentSender == null} ")
+                //     launcher.launch(
+                //         IntentSenderRequest.Builder(
+                //             intentSender = signInIntentSender ?: return@launch
+                //         ).build()
+                //     )
+                //     this.coroutineContext.cancel()
+                // }
             }
         )
     })
 }
+
+

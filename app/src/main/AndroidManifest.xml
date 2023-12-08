@@ -14,7 +14,7 @@
         android:theme="@style/Theme.MashDiary"
         tools:targetApi="31">
         <activity
-            android:name=".feature.authentication.presentation.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.MashDiary.MySplash">
             <intent-filter>

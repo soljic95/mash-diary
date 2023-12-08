@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class AuthenticationRepositoryImpl @Inject constructor(
-    private val authService: AuthService
+    private val authService: AuthService // inject data store also and room
 ) : AuthenticationRepository {
-    override suspend fun googleSignIn(credential: AuthCredential): Flow<Response<SignInResult>> {
+    override suspend fun googleSignIn(credential: AuthCredential?): Flow<Response<SignInResult>> {
         return flow {
             emit(Response.Loading())
             //here we would call the auth service
-            val result = authService.signInWithGoogleCredentials(credential)
+           // val result = authService.signInWithGoogleCredentials(credential)
             kotlinx.coroutines.delay(500)
             emit(
                 Response.Success(

@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GoogleSignInUseCase @Inject constructor(private val repository: AuthenticationRepository) {
-    suspend operator fun invoke(authCredential: AuthCredential): Flow<SignInResult?> {
+    suspend operator fun invoke(authCredential: AuthCredential? = null): Flow<SignInResult?> {
         val result: Flow<Response<SignInResult>> = try {
             repository.googleSignIn(authCredential)
 

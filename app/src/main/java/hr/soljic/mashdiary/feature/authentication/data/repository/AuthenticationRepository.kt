@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthenticationRepository {
 
-    suspend fun googleSignIn(credential: AuthCredential): Flow<Response<SignInResult>>
+    suspend fun googleSignIn(credential: AuthCredential? = null): Flow<Response<SignInResult>>
 
     suspend fun saveLoginToken(token: String?)
     suspend fun getLoginToken(): String?

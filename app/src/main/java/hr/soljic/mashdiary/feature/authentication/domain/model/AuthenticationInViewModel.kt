@@ -31,7 +31,7 @@ class AuthenticationInViewModel @Inject constructor(
         }
     }
 
-    fun signInUserWithGoogleAuth(authCredential: AuthCredential) {
+    fun signInUserWithGoogleAuth(authCredential: AuthCredential? = null) {
         viewModelScope.launch {
             val result = authenticationUseCaseWrapper.googleSignInUseCase.invoke(authCredential)
             result.collect { signInResult ->
