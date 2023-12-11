@@ -13,6 +13,11 @@ import hr.soljic.mashdiary.feature.authentication.data.repository.Authentication
 import hr.soljic.mashdiary.feature.authentication.data.repository.AuthenticationRepositoryImpl
 import hr.soljic.mashdiary.feature.authentication.domain.use_case.AuthenticationUseCaseWrapper
 import hr.soljic.mashdiary.feature.authentication.domain.use_case.GoogleSignInUseCase
+import hr.soljic.mashdiary.feature.explore.data.data_source.network.ItemsService
+import hr.soljic.mashdiary.feature.explore.data.repository.ExploreRepository
+import hr.soljic.mashdiary.feature.explore.data.repository.ExploreRepositoryImpl
+import hr.soljic.mashdiary.feature.home.data.repository.HomeRepository
+import hr.soljic.mashdiary.feature.home.data.repository.HomeRepositoryImpl
 import okhttp3.Dispatcher
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -55,7 +60,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAuthService(retrofit: Retrofit, okHttpClient: OkHttpClient): AuthService {
+    fun provideAuthService(retrofit: Retrofit): AuthService {
         return retrofit.create(AuthService::class.java)
     }
 
@@ -72,13 +77,33 @@ object AppModule {
     }
 
     @Provides
+    @Singleton
     fun provideAuthenticationUseCaseWrapper(googleSignInUseCase: GoogleSignInUseCase): AuthenticationUseCaseWrapper {
         return AuthenticationUseCaseWrapper(googleSignInUseCase)
     }
 
     @Provides
+    @Singleton
     fun provideAuthRepository(authService: AuthService): AuthenticationRepository {
         return AuthenticationRepositoryImpl(authService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideItemsApi(retrofit: Retrofit): ItemsService {
+        return retrofit.create(ItemsService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideExploreRepository(itemsService: ItemsService): ExploreRepository {
+        return ExploreRepositoryImpl(itemsService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHomeRepository(): HomeRepository {
+        return HomeRepositoryImpl()
     }
 
     class DateNightInterceptor(
@@ -104,7 +129,7 @@ object AppModule {
                     .plus("-${locale.language.uppercase()}")
             } else {
                 if (locale2.toString().contains("_")) locale2.toString()
-                    .replace("_", "-") ?: "en-En" else locale.toString()
+                    .replace("_", "-") else locale.toString()
                     .plus("-${locale2?.language?.uppercase()}")
             }
 

@@ -4,6 +4,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -15,20 +18,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.google.android.datatransport.runtime.Destination
 import hr.soljic.mashdiary.feature.home.navigation.HomeScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigationBar(
     navController: NavController,
+    backStackEntry: NavBackStackEntry?,
+    currentDestination: NavDestination?,
     itemList: List<BottomNavigationItem>,
 ) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
+
 
     NavigationBar {
         itemList.forEachIndexed { index, bottomNavigationItem ->
@@ -86,19 +93,19 @@ val bottomNavItemList = listOf(
     BottomNavigationItem(
         title = "My library",
         selectedIcon = Icons.Filled.Home,
-        unSelectedIcon = Icons.Default.Home,
+        unSelectedIcon = Icons.Outlined.Home,
         route = HomeScreens.MyLibrary.route
     ),
     BottomNavigationItem(
         title = "Explore",
         selectedIcon = Icons.Filled.Search,
-        unSelectedIcon = Icons.Default.Search,
+        unSelectedIcon = Icons.Outlined.Search,
         route = HomeScreens.Explore.route
     ),
     BottomNavigationItem(
         title = "Account",
         selectedIcon = Icons.Filled.Person,
-        unSelectedIcon = Icons.Default.Person,
+        unSelectedIcon = Icons.Outlined.Person,
         route = HomeScreens.Account.route
     ),
 )

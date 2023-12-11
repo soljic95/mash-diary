@@ -1,4 +1,4 @@
-package hr.soljic.mashdiary.feature.home.presentation.content
+package hr.soljic.mashdiary.feature.account
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

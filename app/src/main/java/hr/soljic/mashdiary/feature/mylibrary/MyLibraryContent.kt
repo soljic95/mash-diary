@@ -1,4 +1,4 @@
-package hr.soljic.mashdiary.feature.home.presentation.content
+package hr.soljic.mashdiary.feature.mylibrary
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -10,10 +10,9 @@ import androidx.compose.ui.res.colorResource
 import hr.soljic.mashdiary.R
 
 @Composable
-fun ExploreContent() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = colorResource(id = R.color.teal_200))
-    )
+fun MyLibraryContent() {
+
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(color = colorResource(id = androidx.appcompat.R.color.material_deep_teal_500)))
 }
