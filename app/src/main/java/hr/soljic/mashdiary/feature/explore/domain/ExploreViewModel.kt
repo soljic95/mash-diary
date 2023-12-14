@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hr.soljic.mashdiary.core.Response
 import hr.soljic.mashdiary.feature.explore.data.repository.ExploreRepository
 import hr.soljic.mashdiary.feature.explore.domain.model.FeaturedModel
+import hr.soljic.mashdiary.feature.explore.domain.use_case.GetFeaturedItemsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExploreViewModel @Inject constructor(
-    val repository: ExploreRepository
+    val getFeaturedItemsUseCase: GetFeaturedItemsUseCase
 ) : ViewModel() {
 
     init {
@@ -27,7 +28,7 @@ class ExploreViewModel @Inject constructor(
 
     private fun getFeaturedItems() {
         viewModelScope.launch {
-            val result = repository.getFeaturedItems()
+            val result = getFeaturedItemsUseCase.getFeaturedItems()
             result.collectLatest {
                 _featuredItems.value = it
             }

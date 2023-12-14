@@ -6,16 +6,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import hr.soljic.mashdiary.feature.authentication.presentation.sign_in.AuthenticationScreen
 import hr.soljic.mashdiary.feature.home.navigation.HomeScreens
-import hr.soljic.mashdiary.feature.home.navigation.SetupHomeNavHost
 import hr.soljic.mashdiary.feature.home.navigation.SetupHomeRootNavHost
-import hr.soljic.mashdiary.feature.home.presentation.screen.HomeScreen
 
 @Composable
-fun SetupRootNavGraph(
+fun SetupRootNavGraph( // uvodni NavHost, unutar sebe ima nestani navigationComposable s root id-em "home_destination_route"
     startDestination: String,
     navController: NavHostController
 ) {

@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ExploreRepository {
 
-    suspend fun getFeaturedItems(): Flow<Response<List<FeaturedModel>>>
+    suspend fun getFeaturedItems(): Flow<List<FeaturedModel>>
 }

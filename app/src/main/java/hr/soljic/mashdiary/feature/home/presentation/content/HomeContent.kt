@@ -23,6 +23,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.android.datatransport.runtime.Destination
 import hr.soljic.mashdiary.feature.home.navigation.HomeScreens
@@ -30,7 +31,7 @@ import hr.soljic.mashdiary.feature.home.navigation.HomeScreens
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigationBar(
-    navController: NavController,
+    navController: NavHostController,
     backStackEntry: NavBackStackEntry?,
     currentDestination: NavDestination?,
     itemList: List<BottomNavigationItem>,
@@ -42,7 +43,6 @@ fun BottomNavigationBar(
             NavigationBarItem(
                 selected = currentDestination?.hierarchy?.any { it.route == bottomNavigationItem.route } == true,
                 onClick = {
-                    //changeSelectedItemIndex.invoke(index)
                     navController.navigate(bottomNavigationItem.route) {
                         // Pop up to the start destination of the graph to
                         // avoid building up a large stack of destinations

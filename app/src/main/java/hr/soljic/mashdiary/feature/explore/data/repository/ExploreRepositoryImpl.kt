@@ -14,10 +14,10 @@ import javax.inject.Inject
 class ExploreRepositoryImpl @Inject constructor(
     private val service: ItemsService
 ) : ExploreRepository {
-    override suspend fun getFeaturedItems(): Flow<Response<List<FeaturedModel>>> {
+    override suspend fun getFeaturedItems(): Flow<List<FeaturedModel>> {
         return flow {
             delay(500)
-            emit(Response.Success(data = getFeaturedResponse))
+            emit(getFeaturedResponse)
         }
     }
 }

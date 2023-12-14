@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import hr.soljic.mashdiary.feature.home.domain.model.HomeViewModel
@@ -37,12 +38,14 @@ import hr.soljic.mashdiary.feature.home.presentation.content.bottomNavItemList
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    navController: NavHostController
 ) {
-    val navController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
 
+    val libraryExploreAccountNavController =
+        rememberNavController() //this navController should control explore,library and account
+    val navBackStackEntry by libraryExploreAccountNavController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
     Scaffold(
         topBar = {
             if (currentDestination?.route == HomeScreens.Explore.route) {
@@ -51,14 +54,17 @@ fun HomeScreen(
         },
         bottomBar = {
             BottomNavigationBar(
-                navController = navController,
+                navController = libraryExploreAccountNavController,
                 backStackEntry = navBackStackEntry,
                 currentDestination = currentDestination,
                 itemList = bottomNavItemList
             )
         },
         content = {
-            SetupHomeNavHost(navController = navController)
+            SetupHomeNavHost(
+                navController = navController,
+                libraryExploreAccountNavController = libraryExploreAccountNavController
+            )
         }
     )
 }

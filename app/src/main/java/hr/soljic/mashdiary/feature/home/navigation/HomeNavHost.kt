@@ -17,14 +17,16 @@ import hr.soljic.mashdiary.feature.mylibrary.MyLibraryScreen
 
 @Composable
 fun SetupHomeNavHost(
-    navController: NavHostController
+    navController: NavHostController,
+    libraryExploreAccountNavController: NavHostController
 ) {
+
 
     NavHost(
         startDestination = HomeScreens.Explore.route,
-        navController = navController,
+        navController = libraryExploreAccountNavController,
     ) {
-        explore(navController = navController)
+        explore(rootNavController = navController)
         myLibrary()
         account()
     }
@@ -36,9 +38,9 @@ fun NavGraphBuilder.myLibrary() {
     }
 }
 
-fun NavGraphBuilder.explore(navController: NavController) {
+fun NavGraphBuilder.explore(rootNavController: NavHostController) {
     composable(route = HomeScreens.Explore.route) {
-        ExploreScreen(navController = navController)
+        ExploreScreen(navController = rootNavController)
     }
 }
 
@@ -52,18 +54,5 @@ fun NavGraphBuilder.account() {
         })
     ) {
         AccountScreen()
-    }
-}
-
-fun NavGraphBuilder.detailsGraph() {
-    composable(
-        route = "details_route"
-    ) {
-        NavHost(
-            startDestination = DetailsScreens.DateNightDetail.route,
-            navController = rememberNavController()
-        ) {
-
-        }
     }
 }

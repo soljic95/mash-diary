@@ -116,7 +116,7 @@ fun HorizontalItem(
             (LocalContext.current)
             .data(item.coverPhoto)
             .allowConversionToBitmap(enable = true)
-            .size(Size.ORIGINAL)
+            .size(200,300)
             .build()
     ).state
 
@@ -139,7 +139,7 @@ fun HorizontalItem(
             )
             .fillMaxHeight()
             .clickable {
-                navController.navigate(HomeScreens.Details.route + "/${item.id}")
+                navController.navigate(HomeScreens.Details.route)
             },
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -171,14 +171,20 @@ fun HorizontalItem(
                     .clip(
                         RoundedCornerShape(20.dp)
                     )
-                    .height(180.dp)
-                    .width(200.dp)
+                    .fillMaxSize(0.7f)
                     .aspectRatio(9f / 12f),
                 painter = imageState.painter,
                 contentDescription = item.title,
                 contentScale = ContentScale.Crop
             )
         }
+
+
+
+
+
+
+
         Spacer(modifier = Modifier.size(10.dp))
         Text(
             text = item.title, maxLines = 2, modifier = Modifier

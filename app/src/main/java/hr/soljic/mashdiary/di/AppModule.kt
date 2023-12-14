@@ -16,6 +16,7 @@ import hr.soljic.mashdiary.feature.authentication.domain.use_case.GoogleSignInUs
 import hr.soljic.mashdiary.feature.explore.data.data_source.network.ItemsService
 import hr.soljic.mashdiary.feature.explore.data.repository.ExploreRepository
 import hr.soljic.mashdiary.feature.explore.data.repository.ExploreRepositoryImpl
+import hr.soljic.mashdiary.feature.explore.domain.use_case.GetFeaturedItemsUseCase
 import hr.soljic.mashdiary.feature.home.data.repository.HomeRepository
 import hr.soljic.mashdiary.feature.home.data.repository.HomeRepositoryImpl
 import okhttp3.Dispatcher
@@ -98,6 +99,12 @@ object AppModule {
     @Singleton
     fun provideExploreRepository(itemsService: ItemsService): ExploreRepository {
         return ExploreRepositoryImpl(itemsService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetFeaturedItemsUseCase(repository: ExploreRepository): GetFeaturedItemsUseCase {
+        return GetFeaturedItemsUseCase(repository)
     }
 
     @Provides
